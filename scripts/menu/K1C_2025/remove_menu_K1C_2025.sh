@@ -15,6 +15,8 @@ function remove_menu_ui_k1c_2025() {
   subtitle '•UTILITIES:'
   menu_option ' 4' 'Remove' 'Entware'
   menu_option ' 5' 'Remove' 'Klipper Gcode Shell Command'
+  hr
+  subtitle '•CAMERA:'
   menu_option ' 6' 'Remove' 'Go2rtc'
   menu_option ' 7' 'Remove' 'USB Camera Support'
   menu_option ' 8' 'Remove' 'Built-in Camera Fix'

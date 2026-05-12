@@ -16,7 +16,7 @@ function tools_menu_ui_k1c_2025() {
   hr
   menu_option ' 6' 'Restart' 'Nginx service'
   menu_option ' 7' 'Restart' 'Moonraker service'
-  disabled_menu_option ' 8' 'Restart' 'Klipper service'
+  menu_option ' 8' 'Restart' 'Klipper service'
   hr
   menu_option ' 9' 'Update' 'Entware packages'
   hr
@@ -87,12 +87,11 @@ function tools_menu_k1c_2025() {
           run "restart_moonraker_action" "tools_menu_ui_k1c_2025"
         fi;;
       8)
-        disabled_feature;;
-#        if [ ! -f "$INITD_FOLDER"/S55klipper_service ]; then
-#          error_msg "Klipper service is not present!"
-#        else
-#          run "restart_klipper_action" "tools_menu_ui_k1c_2025"
-#        fi;;
+        if [ ! -f "$INITD_FOLDER"/CS55klipper_service ] && [ ! -f "$INITD_FOLDER"/S55klipper_service ]; then
+          error_msg "Klipper service is not present!"
+        else
+          run "restart_klipper_action" "tools_menu_ui_k1c_2025"
+        fi;;
       9)
         if [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is not installed!"
