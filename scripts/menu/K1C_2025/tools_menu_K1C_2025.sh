@@ -13,19 +13,20 @@ function tools_menu_ui_k1c_2025() {
   hr
   menu_option ' 4' 'Enable' 'camera settings in Moonraker'
   menu_option ' 5' 'Disable' 'camera settings in Moonraker'
+  menu_option ' 6' 'Add' 'chassis light control'
   hr
-  menu_option ' 6' 'Restart' 'Nginx service'
-  menu_option ' 7' 'Restart' 'Moonraker service'
-  menu_option ' 8' 'Restart' 'Klipper service'
+  menu_option ' 7' 'Restart' 'Nginx service'
+  menu_option ' 8' 'Restart' 'Moonraker service'
+  menu_option ' 9' 'Restart' 'Klipper service'
   hr
-  menu_option ' 9' 'Update' 'Entware packages'
+  menu_option '10' 'Update' 'Entware packages'
   hr
-  menu_option '10' 'Clear' 'cache'
-  menu_option '11' 'Clear' 'logs files'
+  menu_option '11' 'Clear' 'cache'
+  menu_option '12' 'Clear' 'logs files'
   hr
-  disabled_menu_option '12' 'Restore' 'a previous firmware'
+  disabled_menu_option '13' 'Restore' 'a previous firmware'
   hr
-  disabled_menu_option '13' 'Reset' 'factory settings'
+  disabled_menu_option '14' 'Reset' 'factory settings'
   hr
   inner_line
   hr
@@ -61,7 +62,7 @@ function tools_menu_k1c_2025() {
 #          run "printing_gcode_from_folder" "tools_menu_ui_k1c_2025"
 #        fi;;
       4)
-        if [ ! -f "$BUILTIN_CAMERA_FILE" ] && [ ! -f "$USB_CAMERA_FILE" ]; then
+        if [ ! -f "$BUILTIN_CAMERA_FILE" ] && [ ! -f "$BUILTIN_CAMERA_LEGACY_FILE" ] && [ ! -f "$USB_CAMERA_FILE" ] && [ ! -f "$USB_CAMERA_LEGACY_FILE" ]; then
           error_msg "Built-in Camera Fix or USB Camera Support is needed, please install one first!"
         elif grep -q "^\[webcam chassis\]\|^\[webcam usb\]" "$MOONRAKER_CFG"; then
           error_msg "Camera settings are already enabled in Moonraker!"
@@ -75,37 +76,43 @@ function tools_menu_k1c_2025() {
           run "disable_camera_settings" "tools_menu_ui_k1c_2025"
         fi;;
       6)
+        if grep -q "^\[output_pin LED\]" "$PRINTER_CFG"; then
+          error_msg "Chassis light control is already present in printer.cfg!"
+        else
+          run "add_chassis_light_control" "tools_menu_ui_k1c_2025"
+        fi;;
+      7)
         if [ ! -d "$NGINX_FOLDER" ]; then
           error_msg "Nginx is not installed!"
         else
           run "restart_nginx_action" "tools_menu_ui_k1c_2025"
         fi;;
-      7)
+      8)
         if [ ! -d "$MOONRAKER_FOLDER" ]; then
           error_msg "Moonraker is not installed!"
         else
           run "restart_moonraker_action" "tools_menu_ui_k1c_2025"
         fi;;
-      8)
+      9)
         if [ ! -f "$INITD_FOLDER"/CS55klipper_service ] && [ ! -f "$INITD_FOLDER"/S55klipper_service ]; then
           error_msg "Klipper service is not present!"
         else
           run "restart_klipper_action" "tools_menu_ui_k1c_2025"
         fi;;
-      9)
+      10)
         if [ ! -f "$ENTWARE_FILE" ]; then
           error_msg "Entware is not installed!"
         else
           run "update_entware_packages" "tools_menu_ui_k1c_2025"
         fi;;
-      10)
-        run "clear_cache" "tools_menu_ui_k1c_2025";;
       11)
-        run "clear_logs" "tools_menu_ui_k1c_2025";;
+        run "clear_cache" "tools_menu_ui_k1c_2025";;
       12)
+        run "clear_logs" "tools_menu_ui_k1c_2025";;
+      13)
         disabled_feature;;
 #        run "restore_previous_firmware" "tools_menu_ui_k1c_2025";;
-      13)
+      14)
         disabled_feature;;
 #        run "reset_factory_settings" "tools_menu_ui_k1c_2025";;
       B|b)

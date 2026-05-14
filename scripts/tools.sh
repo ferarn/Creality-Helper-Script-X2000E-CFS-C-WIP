@@ -58,6 +58,17 @@ function disable_camera_settings_message(){
   bottom_line
 }
 
+function add_chassis_light_control_message(){
+  top_line
+  title 'Add chassis light control' "${yellow}"
+  inner_line
+  hr
+  echo -e " в”‚ ${cyan}This adds K1C 2025 chassis light control to printer.cfg.     ${white}в”‚"
+  echo -e " в”‚ ${cyan}The LED is connected to PA8.                                 ${white}в”‚"
+  hr
+  bottom_line
+}
+
 function restore_previous_firmware_message(){
   top_line
   title 'Restore a previous firmware' "${yellow}"
@@ -211,10 +222,10 @@ function enable_camera_settings(){
       Y|y)
         echo -e "${white}"
         if [ "$model" = "K1C_2025" ]; then
-          if [ -f "$BUILTIN_CAMERA_FILE" ]; then
+          if [ -f "$BUILTIN_CAMERA_FILE" ] || [ -f "$BUILTIN_CAMERA_LEGACY_FILE" ]; then
             configure_builtin_camera_k1c_2025
           fi
-          if [ -f "$USB_CAMERA_FILE" ]; then
+          if [ -f "$USB_CAMERA_FILE" ] || [ -f "$USB_CAMERA_LEGACY_FILE" ]; then
             configure_usb_camera_k1c_2025
           fi
         elif grep -q "#\[webcam Camera\]" "$MOONRAKER_CFG" ; then
@@ -275,6 +286,57 @@ function disable_camera_settings(){
         return;;
       N|n)
         error_msg "Deactivation canceled!"
+        return;;
+      *)
+        error_msg "Please select a correct choice!";;
+    esac
+  done
+}
+
+function add_chassis_light_control(){
+  add_chassis_light_control_message
+  local yn
+  while true; do
+    read -p "${white} Do you want to add ${green}chassis light control ${white}? (${yellow}y${white}/${yellow}n${white}): ${yellow}" yn
+    case "${yn}" in
+      Y|y)
+        echo -e "${white}"
+        if grep -q "^\[output_pin LED\]" "$PRINTER_CFG"; then
+          error_msg "Chassis light control is already present in printer.cfg!"
+          return
+        fi
+        echo -e "Info: Adding chassis light control to printer.cfg..."
+        awk '
+          BEGIN { added = 0 }
+          /^\#\*\# <---------------------- SAVE_CONFIG ---------------------->/ && !added {
+            print ""
+            print "[output_pin LED]"
+            print "pin: PA8"
+            print "pwm: True"
+            print "cycle_time: 0.001"
+            print "value: 1"
+            print "shutdown_value: 0"
+            added = 1
+          }
+          { print }
+          END {
+            if (!added) {
+              print ""
+              print "[output_pin LED]"
+              print "pin: PA8"
+              print "pwm: True"
+              print "cycle_time: 0.001"
+              print "value: 1"
+              print "shutdown_value: 0"
+            }
+          }
+        ' "$PRINTER_CFG" > "$PRINTER_CFG.tmp" && mv "$PRINTER_CFG.tmp" "$PRINTER_CFG"
+        echo -e "Info: Restarting Klipper service..."
+        restart_klipper
+        ok_msg "Chassis light control has been added successfully!"
+        return;;
+      N|n)
+        error_msg "Installation canceled!"
         return;;
       *)
         error_msg "Please select a correct choice!";;
