@@ -13,8 +13,8 @@ function entware_message(){
   bottom_line
 }
 
-# Writes S48entware (runs before S50* camera/nginx). Removes legacy S56entware.
-# Old S56 script was broken (indented shebang) and ran after cameras — /opt was empty at camera start.
+# Writes S48entware so /opt is mounted before camera services need Entware binaries.
+# Removes the legacy S56entware startup script when migrating existing K1C 2025 installs.
 function k1c_2025_write_entware_init_script() {
   echo "Info: Installing Entware boot mount (S48entware, before S50 camera services)..."
   rm -f "$INITD_FOLDER/S56entware"
