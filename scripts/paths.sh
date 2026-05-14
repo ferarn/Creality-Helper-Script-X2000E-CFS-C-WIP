@@ -166,10 +166,6 @@ function set_paths() {
   BUILTIN_CAMERA_FILE="${INITD_FOLDER}/S57builtin_camera"
   BUILTIN_CAMERA_LEGACY_FILE="${INITD_FOLDER}/S50builtin_camera"
   BUILTIN_CAMERA_K1C_2025_URL="${HS_FILES}/services/S50builtin_camera-k1c-2025"
-  QUINTUSP_SERVICE_FILE="${INITD_FOLDER}/CS59quintusp"
-  QUINTUSP_DISABLED_FILE="${INITD_FOLDER}/disabled.CS59quintusp"
-  QUINTUSP_CONFIG_FILE="${USR_DATA}/creality/quintusp/quintusp.json"
-  QUINTUSP_CONFIG_BACKUP_FILE="${USR_DATA}/creality/quintusp/quintusp.json.helper-script.bak"
   
   # OctoEverywhere #
   OCTOEVERYWHERE_FOLDER="${USR_DATA}/octoeverywhere"
