@@ -19,6 +19,9 @@ function set_paths() {
   if [ "$model" = "K1C_2025" ]; then
     INITD_FOLDER="/usr/apps/etc/init.d"
     BIN_FOLDER="/usr/apps/usr/bin"
+  elif [ "$model" = "K1C_X2000E" ]; then
+    INITD_FOLDER="/etc/init.d"
+    BIN_FOLDER="/usr/apps/usr/bin"
   else
     INITD_FOLDER="/etc/init.d"
     BIN_FOLDER="/usr/bin"
@@ -65,7 +68,7 @@ function set_paths() {
   KLIPPER_EXTRAS_FOLDER="/usr/share/klipper/klippy/extras"
   KLIPPER_CONFIG_FOLDER="${PRINTER_DATA_FOLDER}/config"
   KLIPPER_KLIPPY_FOLDER="/usr/share/klipper/klippy"
-  if [ "$model" = "K1C_2025" ]; then
+  if [[ "$model" = "K1C_2025" ] || [ "$model" = "K1C_X2000E" ]]; then
     KLIPPER_SERVICE_URL="${HS_FILES}/services/CS55klipper_service_minimal"
   else
     KLIPPER_SERVICE_URL="${HS_FILES}/services/S55klipper_service"
@@ -151,10 +154,10 @@ function set_paths() {
   CAMERA_SETTINGS_FILE="${HS_CONFIG_FOLDER}/camera-settings.cfg"
   CAMERA_SETTINGS_URL="${HS_FILES}/camera-settings/camera-settings.cfg"
   CAMERA_SETTINGS_NEBULA_URL="${HS_FILES}/camera-settings/camera-settings-nebula.cfg"
-  CAMERA_SETTINGS_K1C_2025_URL="${HS_FILES}/camera-settings/camera-settings-k1c-2025.cfg"
+  CAMERA_SETTINGS_K1C_URL="${HS_FILES}/camera-settings/camera-settings-k1c.cfg"
   
   # USB Camera Support
-  if [ "$model" = "K1C_2025" ]; then
+  if [[ "$model" = "K1C_2025" ] || [ "$model" = "K1C_X2000E" ]]; then
     USB_CAMERA_FILE="${INITD_FOLDER}/S58usb_camera"
   else
     USB_CAMERA_FILE="${INITD_FOLDER}/S50usb_camera"
@@ -162,10 +165,10 @@ function set_paths() {
   USB_CAMERA_LEGACY_FILE="${INITD_FOLDER}/S50usb_camera"
   USB_CAMERA_SINGLE_URL="${HS_FILES}/services/S50usb_camera-single"
   USB_CAMERA_DUAL_URL="${HS_FILES}/services/S50usb_camera-dual"
-  USB_CAMERA_K1C_2025_URL="${HS_FILES}/services/S50usb_camera-k1c-2025"
+  USB_CAMERA_K1C_URL="${HS_FILES}/services/S50usb_camera-k1c"
   BUILTIN_CAMERA_FILE="${INITD_FOLDER}/S57builtin_camera"
   BUILTIN_CAMERA_LEGACY_FILE="${INITD_FOLDER}/S50builtin_camera"
-  BUILTIN_CAMERA_K1C_2025_URL="${HS_FILES}/services/S50builtin_camera-k1c-2025"
+  BUILTIN_CAMERA_K1C_URL="${HS_FILES}/services/S50builtin_camera-k1c"
   
   # OctoEverywhere #
   OCTOEVERYWHERE_FOLDER="${USR_DATA}/octoeverywhere"

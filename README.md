@@ -6,4 +6,4 @@ This script intended for use on Creality **K1 Series** and **Ender-3 V3 Series**
 
 Additional support for K1C 2025 by @C0DEbrained.
 
-(WIP) Pre2025 K1C-CFS-C support in progress by @ferarn
+K1C X2000E (K1C-CFS-C pre-2025) support in progress by @ferarn >>>(WIP, Untested, Likely Unstable)<<<

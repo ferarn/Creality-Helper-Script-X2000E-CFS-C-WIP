@@ -29,7 +29,7 @@ function moonraker_3v3_message(){
   bottom_line
 }
 
-function configure_moonraker_nginx_k1c_2025(){
+function configure_moonraker_nginx_k1c(){
   local nginx_conf
 
   if [ -f "$MOONRAKER_CFG" ]; then
@@ -75,8 +75,8 @@ function install_moonraker_nginx(){
           rm -f "$PRINTER_DATA_FOLDER"/moonraker.asvc
         fi
         cp "$MOONRAKER_URL3" "$PRINTER_DATA_FOLDER"/moonraker.asvc
-        if [ "$model" = "K1C_2025" ]; then
-          configure_moonraker_nginx_k1c_2025
+        if [[ "$model" = "K1C_2025" ] || [ "$model" = "K1C_X2000E" ]]; then
+          configure_moonraker_nginx_k1c
         fi
         echo -e "Info: Applying changes from official repo..."
         cd "$MOONRAKER_FOLDER"/moonraker

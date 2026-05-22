@@ -70,8 +70,8 @@ function main_menu() {
       1) clear
          if [ "$model" = "K1" ]; then
            install_menu_k1
-         elif [ "$model" = "K1C_2025" ]; then
-           install_menu_k1c_2025
+         elif [[ "$model" = "K1C_2025" ] || [ "$model" = "K1C_X2000E" ]]; then
+           install_menu_K1C
          elif [ "$model" = "3V3" ]; then
            install_menu_3v3
          elif [ "$model" = "3KE" ]; then
@@ -85,8 +85,8 @@ function main_menu() {
       2) clear
          if [ "$model" = "K1" ]; then
            remove_menu_k1
-         elif [ "$model" = "K1C_2025" ]; then
-           remove_menu_k1c_2025
+         elif [[ "$model" = "K1C_2025" ] || [ "$model" = "K1C_X2000E" ]]; then
+           remove_menu_k1c
          elif [ "$model" = "3V3" ]; then
            remove_menu_3v3
          elif [ "$model" = "3KE" ]; then
@@ -100,8 +100,8 @@ function main_menu() {
       3) clear
          if [ "$model" = "K1" ]; then
            customize_menu_k1
-         elif [ "$model" = "K1C_2025" ]; then
-           customize_menu_k1c_2025
+         elif [[ "$model" = "K1C_2025" ] || [ "$model" = "K1C_X2000E" ]]; then
+           customize_menu_k1c
          elif [ "$model" = "3V3" ]; then
            customize_menu_3v3
          elif [ "$model" = "3KE" ]; then
@@ -118,8 +118,8 @@ function main_menu() {
       5) clear
          if [ "$model" = "K1" ]; then
            tools_menu_k1
-         elif [ "$model" = "K1C_2025" ]; then
-           tools_menu_k1c_2025
+         elif [[ "$model" = "K1C_2025" ] || [ "$model" = "K1C_X2000E" ]]; then
+           tools_menu_k1c
          elif [ "$model" = "3V3" ]; then
            tools_menu_3v3
          elif [ "$model" = "3KE" ]; then
@@ -133,8 +133,8 @@ function main_menu() {
       6) clear
          if [ "$model" = "K1" ]; then
            info_menu_k1
-         elif [ "$model" = "K1C_2025" ]; then
-           info_menu_k1c_2025
+         elif [[ "$model" = "K1C_2025" ] || [ "$model" = "K1C_X2000E" ]]; then
+           info_menu_k1c
          elif [ "$model" = "3V3" ]; then
            info_menu_3v3
          elif [ "$model" = "3KE" ]; then

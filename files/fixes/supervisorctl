@@ -11,9 +11,12 @@ if [ -t 1 ]; then  # colorize only if we're on a terminal
   ENDCOLOR='\033[0m'
 fi
 
-INITD_PATH="/etc/init.d"
-if [ "$(get_sn_mac.sh "model" || get_sn_mac.sh "model_str")" = "K1C" ]; then
-  INITD_PATH="/usr/apps/etc/init.d"
+if [ "$(get_sn_mac.sh "model" || get_sn_mac.sh "model_str")" = "K1C" ]; then  
+  if echo $(get_sn_mac.sh board 2>&1) | grep -iq "CR4SU200382C13"; then
+    INITD_PATH="/usr/apps/etc/init.d"
+  elif echo $(get_sn_mac.sh board 2>&1) | grep -iq "CR4CU220812S12"; then
+    INITD_PATH="/etc/init.d"
+  fi
 fi
 
 get_services() {
